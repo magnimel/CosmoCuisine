@@ -1,0 +1,27 @@
+.card {
+    height: 80px;
+    width: 80px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    font-size: small;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+}
+
+.operation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

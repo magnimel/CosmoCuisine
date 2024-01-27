@@ -5,9 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const app = express();
 app.use(express.json());
 
-app.use(cors(
-  { origin: "*" }
-));
+app.use(cors({ origin: "*" }));
 
 const port = process.env.PORT || 3002;
 
@@ -22,17 +20,6 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
-});
-
-app.post("/generate", async (req, res) => {
-  const { queryDescription } = req.body
-  try {
-    const sqlQuery = await generate(queryDescription);
-    res.json({ sqlQuery });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
 });
 
 import generater from "./gen.recipe.js";
@@ -65,26 +52,50 @@ app.get("/api/ingredients", async (req, res) => {
   res.json(ingredients);
 });
 
-// create a new ingredient
+
+// create a new ingredient or update existing one
 app.post("/api/ingredients", async (req, res) => {
   const { name, quantity } = req.body;
-  if (!name) {
-    return res.status(400).send("ingredient name is required");
+  if (!name || quantity == null) {
+    return res.status(400).send("Ingredient name and quantity are required");
   }
 
   try {
-    const newIngredient = await prisma.ingredients.create({
-      data: {
-        name,
-        quantity,
+    // Check if the ingredient already exists by counting the number of occurrences
+    const placeCount = await prisma.ingredients.count({
+      where: {
+        name: name,
       },
     });
-    res.json(newIngredient);
+
+    if (placeCount != 0) {
+      // Ingredient already exists, update its quantity
+      const updatedIngredient = await prisma.ingredients.updateMany({
+        where: {
+          name: name,
+        },
+        data: {
+          quantity: {
+            increment: quantity
+          },
+        },
+      });
+      return res.json(updatedIngredient);
+    } else {
+      // Create a new ingredient since it does not exist
+      const newIngredient = await prisma.ingredients.create({
+        data: {
+          name,
+          quantity,
+        },
+      });
+      return res.json(newIngredient);
+    }
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
-
 });
+
 
 // update quantity of an ingredient
 app.put("/api/ingredients/:id", async (req, res) => {
@@ -120,7 +131,6 @@ app.delete("/api/ingredients/:id", async (req, res) => {
   if (!id || isNaN(id)) {
     return res.status(400).send("ID field required");
   }
-
 
   try {
     await prisma.ingredients.delete({

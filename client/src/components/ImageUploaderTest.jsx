@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import styles from './ImageUploaderTest.module.css';
 
 const ImageUploaderTest = ({ addIngredientFromImage }) => {
     const [image, setImage] = useState("");
@@ -40,6 +41,7 @@ const ImageUploaderTest = ({ addIngredientFromImage }) => {
     };
 
     const analyseImage = () => {
+        console.log("click analyse ingredients btn");
         setShowModal(true);
     };
 
@@ -76,8 +78,8 @@ const ImageUploaderTest = ({ addIngredientFromImage }) => {
                 </button>
             </div>
             {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
+                <div className={styles.modal}>
+                    <div>
                         <p>There are 3 oranges. Would you like to add it to your ingredient list?</p>
                         <span>
                             <button onClick={handleSubmit}>Yes</button>

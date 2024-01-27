@@ -46,7 +46,7 @@ const CardList = forwardRef((props, ref) => {
         console.log('我要加橙子啦');
         const newCard = {
             food_id: 10,
-            name: "Orange",
+            name: "orange",
             logo: "orange.svg",
             quantity: 3,
         };

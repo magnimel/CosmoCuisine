@@ -1,0 +1,9 @@
+.cardList {
+    height: 400px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    display: flex;
+    overflow: auto;
+}

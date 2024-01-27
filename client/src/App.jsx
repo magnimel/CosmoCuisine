@@ -1,6 +1,53 @@
 import styles from "./styles.module.css";
 import food from "./assets/food.svg";
 import { useState } from "react";
+import CardList from "./components/CardList";
+
+const cards = [
+  {
+    id: 1,
+    name: 'Apple',
+    content: 'This is the content of Card 1',
+    logo: 'apple.png',
+    quantity: 1,
+  },
+  {
+    id: 2,
+    name: 'Apple',
+    content: 'This is the content of Card 2',
+    logo: 'apple.svg',
+    quantity: 2,
+  },
+  {
+    id: 3,
+    name: 'Apple',
+    content: 'This is the content of Card 3',
+    logo: 'apple.svg',
+    quantity: 2,
+  },
+  // {
+  //   id: 4,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 1',
+  //   logo: 'apple.png',
+  //   quantity: 1,
+  // },
+  // {
+  //   id: 5,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 2',
+  //   logo: 'apple.svg',
+  //   quantity: 2,
+  // },
+  // {
+  //   id: 6,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 3',
+  //   logo: 'apple.svg',
+  //   quantity: 2,
+  // },
+  // Add more cards as needed
+];
 
 export default function App() {
   const [userPrompt, setUserPrompt] = useState("");
@@ -28,18 +75,21 @@ export default function App() {
   return (
     <main className={styles.main}>
       <img src={food} className={styles.icon} alt="temp-logo" />
-
+      <input
+        type="text"
+        name="ingredient-name"
+        placeholder="Add items"
+        value={userPrompt}
+        onChange={(e) => setUserPrompt(e.target.value)}
+      />
+      <form onSubmit={() => { }}>
+        <input type="submit" value="Add items" />
+      </form>
+      <CardList />
       <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="ingredient-name"
-          placeholder="add items"
-          value={userPrompt}
-          onChange={(e) => setUserPrompt(e.target.value)}
-        />
-        <input type="submit" value="add" />
+        <input type="submit" value="Generate query" />
       </form>
       <pre>{sqlQuery}</pre>
-    </main>
+    </main >
   );
 }

@@ -83,7 +83,7 @@ export default function App() {
         value={userPrompt}
         onChange={(e) => setUserPrompt(e.target.value)}
       />
-      <CardList cards={cards} />
+      <CardList />
       <form onSubmit={onSubmit}>
 
         <input type="submit" value="Generate query" />

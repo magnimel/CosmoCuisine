@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./Card.module.css";
-import logopath from '../assets/apple.svg';
+//import logopath from '../assets/apple.svg';
 
 const Card = ({ card }) => {
     const name = card.name;
     const quantity = card.quantity;
+    const logopath = "/src/assets/" + name + ".svg";
+    console.log(logopath);
 
     return (
         <div className={styles.card}>

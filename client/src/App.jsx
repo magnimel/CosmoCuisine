@@ -90,6 +90,40 @@ export default function App() {
         <input type="submit" value="Generate query" />
       </form>
       <pre>{sqlQuery}</pre>
+
+      <div className={styles.recipe}>
+        Preparation Time: 10 minutes
+        Difficulty: Easy
+
+        Ingredients:
+        1 banana
+        1 egg
+        2 apples
+
+        Kitchen Tools Needed:
+        Mixing bowl
+        Whisk or fork
+        Frying pan
+        Spatula
+
+        Instructions:
+        Peel the banana and mash it in a mixing bowl using a fork.
+        Crack the egg into the bowl with the mashed banana.
+        Whisk or beat the egg and banana together until well combined.
+        Core and thinly slice the apples.
+        Heat a frying pan over medium heat.
+        Dip each apple slice into the banana-egg mixture, coating both sides.
+        Place the coated apple slices onto the hot frying pan and cook for about 2-3 minutes on each side until golden brown.
+        Remove the cooked apple slices from the pan and repeat the process with the remaining slices.
+        Serve the banana egg-coated apple slices warm.
+
+        Macros:
+        Calories: Approximately 150 calories per serving
+
+        Cautions/Tips:
+        Make sure to use ripe bananas for better taste and texture.
+        The recipe can be easily doubled or adjusted based on the available ingredients and number of people.
+      </div>
     </main >
   );
 }

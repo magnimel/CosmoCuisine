@@ -6,7 +6,6 @@ const Card = ({ card }) => {
     const name = card.name;
     const quantity = card.quantity;
     const logopath = "/src/assets/" + name + ".svg";
-    console.log(logopath);
 
     return (
         <div className={styles.card}>

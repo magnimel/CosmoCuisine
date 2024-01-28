@@ -11,7 +11,7 @@ const CardList = () => {
                 const response = await fetch("http://localhost:3002/api/ingredients");
                 const data = await response.json();
                 setCards(data);
-                console.log(cards);
+                console.log(data);
             } catch (error) {
                 console.log(error);
             }

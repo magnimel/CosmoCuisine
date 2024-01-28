@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import sqlServer from "./assets/sql-server.png";
+import food from "./assets/food.svg";
 import { useState } from "react";
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ queryDescription: userPrompt }),
+      body: JSON.stringify({ items: userPrompt }),
     });
 
     const data = await response.json();
@@ -27,17 +27,17 @@ export default function App() {
 
   return (
     <main className={styles.main}>
-      <img src={sqlServer} className={styles.icon} alt="SQL server" />
-      <h3>Generate SQL</h3>
+      <img src={food} className={styles.icon} alt="temp-logo" />
+
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          name="query-description"
-          placeholder="Describe your query"
+          name="ingredient-name"
+          placeholder="add items"
           value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
         />
-        <input type="submit" value="Generate query" />
+        <input type="submit" value="add" />
       </form>
       <pre>{sqlQuery}</pre>
     </main>

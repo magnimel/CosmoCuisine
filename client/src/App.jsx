@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import sqlServer from "./assets/sql-server.png";
 import { useState } from "react";
 import CardList from "./components/CardList";
+import Upload from './Upload';
 
 const cards = [
   {
@@ -76,13 +77,17 @@ export default function App() {
     <main className={styles.main}>
       <img src={sqlServer} className={styles.icon} alt="SQL server" />
       <h3>Generate SQL</h3>
+      <div className={styles.inputGroup}> 
       <input
         type="text"
         name="query-description"
         placeholder="Add items"
+        className={styles.queryInput} // Make sure this class does not set a width that is too large
         value={userPrompt}
         onChange={(e) => setUserPrompt(e.target.value)}
       />
+      <Upload /> 
+    </div>
       <CardList cards={cards} />
       <form onSubmit={onSubmit}>
 

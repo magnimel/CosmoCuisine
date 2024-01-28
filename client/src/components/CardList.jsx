@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import styles from "./Cardlist.module.css";
 import Card from "./Card";
 
-const CardList = () => {
+const CardList = forwardRef((props, ref) => {
     const [cards, setCards] = useState([]);
     const [render, setRender] = useState(0);
 
@@ -41,6 +41,23 @@ const CardList = () => {
         setCards(newCards);
     }
 
+    // 子组件内部的函数
+    const addMongos = () => {
+        console.log('我要加橙子啦');
+        const newCard = {
+            food_id: 10,
+            name: "Orange",
+            logo: "orange.svg",
+            quantity: 3,
+        };
+        setCards([...cards, newCard]);
+    };
+
+    // 将函数暴露给父组件
+    useImperativeHandle(ref, () => ({
+        addMongos
+    }));
+
     return (
         <div className={styles.cardList}>
             {cards.map((card) => (
@@ -48,6 +65,6 @@ const CardList = () => {
             ))}
         </div>
     );
-}
+});
 
 export default CardList;

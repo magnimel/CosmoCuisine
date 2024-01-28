@@ -1,9 +1,10 @@
 import styles from "./styles.module.css";
 import food from "./assets/food.svg";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import CardList from "./components/CardList";
 import ImageUploader from "./components/ImageUploader";
 import cameraIcon from "./assets/camera.svg";
+import ImageUploaderTest from "./components/ImageUploaderTest";
 
 const cards = [
   {
@@ -97,10 +98,29 @@ export default function App() {
     }
   };
 
-  const uploadImage = async (e) => {
-    e.preventDefault();
-    const query = await generateQuery();
-    setSqlQuery(query);
+  const childRef = useRef(null);
+
+  const handleButtonClick = () => {
+    // 调用子组件的函数 addMongos
+    childRef.current.addMongos();
+  };
+
+  const addIngredientFromImage = async () => {
+    //const query = await generateQuery();
+    const createIngredient = async () => {
+      const response = await fetch("http://localhost:3002/api/ingredients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: "orange", quantity: 3 }),
+      });
+
+      const data = await response.json();
+      return data;
+    };
+    const response = await createIngredient();
+    handleButtonClick();
   };
 
   return (
@@ -114,21 +134,22 @@ export default function App() {
           value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
         />
-        <button
+        {/* <button
           type="button"
           onClick={() => { }} // Triggers file input click
           style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
         >
           <img className={styles.uploadIcon}
             src={cameraIcon} alt="Upload" />
-        </button>
+        </button> */}
       </div>
 
-      {/* <ImageUploader /> */}
       <form onSubmit={() => { }}>
         <input type="submit" value="Add items" />
       </form>
-      <CardList />
+      {/* <ImageUploader /> */}
+      <ImageUploaderTest addIngredientFromImage={addIngredientFromImage} />
+      <CardList ref={childRef} />
 
       <form onSubmit={onSubmit2}>
         <input type="submit" value="Generate Recipe" />

@@ -4,31 +4,31 @@ const ImageUploader = () => {
     const [image, setImage] = useState("");
     const [openAIResponse, setOpenAIResponse] = useState("");
 
-    // function handleFileChange(event) {
-    //     if (event.target.files === null) {
-    //         window.alert("No file selected. Choose a file.")
-    //         return;
-    //     }
-    //     const file = event.target.files[0];
+    function handleFileChange(event) {
+        if (event.target.files === null) {
+            window.alert("No file selected. Choose a file.")
+            return;
+        }
+        const file = event.target.files[0];
 
-    //     // Convert the users file (locally on their computer) to a base64 string
-    //     // FileReader
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
+        // Convert the users file (locally on their computer) to a base64 string
+        // FileReader
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-    //     reader.onload = () => {
-    //         // reader.result -> base64 string ("ENTIRESTRING" -> :))
-    //         if (typeof reader.result === "string") {
-    //             console.log(reader.result);
-    //             setImage(reader.result);
-    //         }
-    //     }
+        reader.onload = () => {
+            // reader.result -> base64 string ("ENTIRESTRING" -> :))
+            if (typeof reader.result === "string") {
+                console.log(reader.result);
+                setImage(reader.result);
+            }
+        }
 
-    //     reader.onerror = (error) => {
-    //         console.log("error: " + error);
-    //     }
+        reader.onerror = (error) => {
+            console.log("error: " + error);
+        }
 
-    // }
+    }
 
     // const analyzeImage = async () => {
     //     const response = await fetch("http://localhost:3002/vision", {

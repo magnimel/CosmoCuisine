@@ -3,6 +3,7 @@ import food from "./assets/food.svg";
 import { useState } from "react";
 import CardList from "./components/CardList";
 import ImageUploader from "./components/ImageUploader";
+import cameraIcon from "./assets/camera.svg";
 
 const cards = [
   {
@@ -96,16 +97,33 @@ export default function App() {
     }
   };
 
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const query = await generateQuery();
+    setSqlQuery(query);
+  };
+
   return (
     <main className={styles.main}>
       <img src={food} className={styles.icon} alt="temp-logo" />
-      <input
-        type="text"
-        name="ingredient-name"
-        placeholder="Add items"
-        value={userPrompt}
-        onChange={(e) => setUserPrompt(e.target.value)}
-      />
+      <div className={styles.inputbox}>
+        <input
+          type="text"
+          name="ingredient-name"
+          placeholder="Add items"
+          value={userPrompt}
+          onChange={(e) => setUserPrompt(e.target.value)}
+        />
+        <button
+          type="button"
+          onClick={() => { }} // Triggers file input click
+          style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+        >
+          <img className={styles.uploadIcon}
+            src={cameraIcon} alt="Upload" />
+        </button>
+      </div>
+
       {/* <ImageUploader /> */}
       <form onSubmit={() => { }}>
         <input type="submit" value="Add items" />

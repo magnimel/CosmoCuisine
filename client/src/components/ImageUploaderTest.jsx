@@ -55,11 +55,11 @@ const ImageUploaderTest = ({ addIngredientFromImage }) => {
     };
 
     return (
-        <div>
+        <div className={styles.layout}>
             {
                 image ? (
                     <img src={image} alt="Uploaded Image"
-                        style={{ width: '180px', height: '180px' }} />
+                        className={styles.image} />
                 ) : (
                     null)
             }
@@ -70,10 +70,10 @@ const ImageUploaderTest = ({ addIngredientFromImage }) => {
                 onChange={(e) => handleFileChange(e)}
             />
             <div>
-                <button onClick={openFileDialog}>
-                    <FontAwesomeIcon icon={faUpload} /> Select your ingredient image
+                <button onClick={openFileDialog} className={styles.btn}>
+                    <FontAwesomeIcon icon={faUpload} /> Select Image
                 </button>
-                <button onClick={analyseImage}>
+                <button onClick={analyseImage} className={styles.btn}>
                     Analyse Ingredients
                 </button>
             </div>
@@ -81,10 +81,11 @@ const ImageUploaderTest = ({ addIngredientFromImage }) => {
                 <div className={styles.modal}>
                     <div>
                         <p>There are 3 oranges. Would you like to add it to your ingredient list?</p>
-                        <span>
-                            <button onClick={handleSubmit}>Yes</button>
-                            <button onClick={handleCloseModal}>No</button>
-                        </span>
+                        <div className={styles.yesnobtns}>
+
+                            <button onClick={handleSubmit} className={styles.btn2}>Yes</button>
+                            <button onClick={handleCloseModal} className={styles.btn2}>No</button>
+                        </div>
 
                     </div>
                 </div>

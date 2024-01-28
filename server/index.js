@@ -112,7 +112,6 @@ app.delete("/api/ingredients/:id", async (req, res) => {
 
 
 import vision from "./vision.js";
-vision();
-
+//vision();
 
 

@@ -35,6 +35,18 @@ app.post("/generate", async (req, res) => {
   }
 });
 
+import generater from "./gen.recipe.js";
+
+app.post("/generate-recipe", async (req, res) => {
+  try {
+    const recipe = await generater(); // Call the generater function
+    res.json({ recipe });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.post("/vision", async (req, res) => {
   const { base64Image } = req.body;
   try {

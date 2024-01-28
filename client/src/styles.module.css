@@ -82,6 +82,23 @@
   border: 1px solid black;
   border-radius: 8px;
   margin-bottom: 24px;
-  display: flex;
   overflow: auto;
+  
+}
+
+.recipe {
+  /* Example styles, adjust as necessary */
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.recipe h2 {
+  margin-bottom: 10px; /* Space below the heading */
+  text-align: center;
+}
+
+.recipe pre {
+  white-space: pre-wrap; /* Wraps text to avoid horizontal scrolling */
+  word-break: break-word; /* Breaks long words if necessary */
 }

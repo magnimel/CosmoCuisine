@@ -1,15 +1,69 @@
 import styles from "./styles.module.css";
-import sqlServer from "./assets/sql-server.png";
+import food from "./assets/food.svg";
 import { useState } from "react";
+import CardList from "./components/CardList";
+
+const cards = [
+  {
+    id: 1,
+    name: "Apple",
+    content: "This is the content of Card 1",
+    logo: "apple.png",
+    quantity: 1,
+  },
+  {
+    id: 2,
+    name: "Apple",
+    content: "This is the content of Card 2",
+    logo: "apple.svg",
+    quantity: 2,
+  },
+  {
+    id: 3,
+    name: "Apple",
+    content: "This is the content of Card 3",
+    logo: "apple.svg",
+    quantity: 2,
+  },
+  // {
+  //   id: 4,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 1',
+  //   logo: 'apple.png',
+  //   quantity: 1,
+  // },
+  // {
+  //   id: 5,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 2',
+  //   logo: 'apple.svg',
+  //   quantity: 2,
+  // },
+  // {
+  //   id: 6,
+  //   name: 'Apple',
+  //   content: 'This is the content of Card 3',
+  //   logo: 'apple.svg',
+  //   quantity: 2,
+  // },
+  // Add more cards as needed
+];
 
 export default function App() {
   const [userPrompt, setUserPrompt] = useState("");
   const [sqlQuery, setSqlQuery] = useState("");
+  const [recipe, setRecipe] = useState(""); // State variable for the recipe
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const query = await generateQuery();
     setSqlQuery(query);
+  };
+
+  const onSubmit2 = async (e) => {
+    e.preventDefault();
+    const txt = await fetchRecipe();
+    setRecipe(txt);
   };
 
   const generateQuery = async () => {
@@ -18,28 +72,54 @@ export default function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ queryDescription: userPrompt }),
+      body: JSON.stringify({ items: userPrompt }),
     });
 
     const data = await response.json();
     return data.sqlQuery.trim();
   };
 
+  const fetchRecipe = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/generate-recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setRecipe(data.recipe); // Assuming you have a state variable 'recipe' to store the fetched recipe
+      return data.recipe;
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+    }
+  };
+
   return (
     <main className={styles.main}>
-      <img src={sqlServer} className={styles.icon} alt="SQL server" />
-      <h3>Generate SQL</h3>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="query-description"
-          placeholder="Describe your query"
-          value={userPrompt}
-          onChange={(e) => setUserPrompt(e.target.value)}
-        />
-        <input type="submit" value="Generate query" />
+      <img src={food} className={styles.icon} alt="temp-logo" />
+      <input
+        type="text"
+        name="ingredient-name"
+        placeholder="Add items"
+        value={userPrompt}
+        onChange={(e) => setUserPrompt(e.target.value)}
+      />
+      <form onSubmit={() => {}}>
+        <input type="submit" value="Add items" />
       </form>
-      <pre>{sqlQuery}</pre>
+      <CardList />
+      
+      <form onSubmit={onSubmit2}>
+        <input type="submit" value="Generate Recipe"/>
+      </form>
+    
+
+      <div className={styles.recipe}>
+      <h2>Generated Recipe</h2>
+        <pre>{recipe}</pre> {/* Display the fetched recipe */}
+      </div>
+      
     </main>
   );
 }

@@ -51,32 +51,52 @@ const cards = [
 
 export default function App() {
   const [userPrompt, setUserPrompt] = useState("");
-  const [sqlQuery, setSqlQuery] = useState("");
   const [recipe, setRecipe] = useState(""); // State variable for the recipe
 
-  const onSubmit = async (e) => {
+  const onSubmit1 = async (e) => {
     e.preventDefault();
-    const query = await generateQuery();
-    setSqlQuery(query);
+  
+    // Check if the user has entered a name for the ingredient
+    if (!userPrompt.trim()) {
+      alert("Please enter an ingredient name.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:3002/api/ingredients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userPrompt,
+          quantity: 1 // Sending a default quantity of 1
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Ingredient added/updated successfully:', data);
+      
+      // Clear the input field after successful submission
+      setUserPrompt("");
+  
+      // Optionally, fetch the updated ingredients list here to refresh your UI
+  
+    } catch (error) {
+      console.error('Error submitting ingredient:', error);
+      alert('Failed to submit ingredient. Please try again.');
+    }
   };
+  
 
   const onSubmit2 = async (e) => {
     e.preventDefault();
     const txt = await fetchRecipe();
     setRecipe(txt);
-  };
-
-  const generateQuery = async () => {
-    const response = await fetch("http://localhost:3002/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: userPrompt }),
-    });
-
-    const data = await response.json();
-    return data.sqlQuery.trim();
   };
 
   const fetchRecipe = async () => {
@@ -101,13 +121,15 @@ export default function App() {
       <input
         type="text"
         name="ingredient-name"
-        placeholder="Add items"
+        placeholder="Ingredients ..."
         value={userPrompt}
         onChange={(e) => setUserPrompt(e.target.value)}
       />
-      <form onSubmit={() => {}}>
-        <input type="submit" value="Add items" />
+      <form onSubmit={onSubmit1}>
+        <input type="submit" value="Add item" />
       </form>
+      <br></br>
+
       <CardList />
       
       <form onSubmit={onSubmit2}>

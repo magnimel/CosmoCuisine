@@ -34,6 +34,7 @@ const generater = async () => {
         role: "system",
         content: `You are a cooking chief specialized in making space friedndly recipes for humanity that has moved to space and now living in space stations.\n
         Your answer should be laid out like this: 
+        TITLE:\n
         Preparation Time: \n
         Difficulty:\n
         Ingredients:\n

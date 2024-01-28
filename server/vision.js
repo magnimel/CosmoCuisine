@@ -1,17 +1,17 @@
 import openaiClient from "./api.js";
 import { readFileSync } from "fs";
 
-const vision = async () => {
+const vision = async (base64Image) => {
 
-  const encodeImage = (imagePath) => {
-    const image = readFileSync(imagePath);
-    return Buffer.from(image).toString("base64");
-  };
+  // const encodeImage = (imagePath) => {
+  //   const image = readFileSync(imagePath);
+  //   return Buffer.from(image).toString("base64");
+  // };
 
-  const imagePath = "../client/src/assets/input.vision/item.jpg";
-  const base64Image = encodeImage(imagePath);
+  //const imagePath = "../client/src/assets/input.vision/item.jpg";
+  //const base64Image = encodeImage(imagePath);
 
-   const response = await openaiClient.createChatCompletion({
+  const response = await openaiClient.createChatCompletion({
     model: "gpt-4-vision-preview",
     messages: [
       {
@@ -24,7 +24,7 @@ const vision = async () => {
           {
             type: "image_url",
             image_url: {
-                url: `data:image/jpeg;base64,${base64Image}`,
+              url: `data:image/jpeg;base64,${base64Image}`,
             },
           },
         ],
@@ -32,9 +32,7 @@ const vision = async () => {
     ],
   });
   console.log(response.data.choices[0].message.content);
-  // const ingredients = getFromDB();
-
-  const recipe = response.data.choices[0].message.content;
+  return response.data.choices[0].message.content;//"mango,3"
 };
 
 export default vision;

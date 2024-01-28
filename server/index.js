@@ -14,6 +14,7 @@ const port = process.env.PORT || 3002;
 const prisma = new PrismaClient();
 
 import generate from "./generate.js";
+import vision from "./vision.js";
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -28,6 +29,17 @@ app.post("/generate", async (req, res) => {
   try {
     const sqlQuery = await generate(queryDescription);
     res.json({ sqlQuery });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/vision", async (req, res) => {
+  const { base64Image } = req.body;
+  try {
+    const imageAnalysis = await vision(base64Image);
+    res.json({ imageAnalysis });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -110,8 +122,6 @@ app.delete("/api/ingredients/:id", async (req, res) => {
   }
 });
 
-
-import vision from "./vision.js";
 //vision();
 
 

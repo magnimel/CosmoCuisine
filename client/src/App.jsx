@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import food from "./assets/food.svg";
 import { useState } from "react";
 import CardList from "./components/CardList";
+import ImageUploader from "./components/ImageUploader";
 
 const cards = [
   {
@@ -82,6 +83,7 @@ export default function App() {
         value={userPrompt}
         onChange={(e) => setUserPrompt(e.target.value)}
       />
+      {/* <ImageUploader /> */}
       <form onSubmit={() => { }}>
         <input type="submit" value="Add items" />
       </form>

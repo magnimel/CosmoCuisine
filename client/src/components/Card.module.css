@@ -1,14 +1,14 @@
 .card {
-    height: 80px;
-    width: 80px;
-    border: 1px solid black;
+    height: 100px;
+    width: 100px;
     border-radius: 10px;
     margin: 8px;
-    padding: 40px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #F5F5F5;
 }
 
 .name {
@@ -24,4 +24,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.btn {
+    height: 30px;
+    background-color: black;
+    color: #F5F5F5;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin: 4px;
 }

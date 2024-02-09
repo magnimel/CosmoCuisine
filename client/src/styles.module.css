@@ -30,7 +30,7 @@
 }
 
 .main .icon {
-  width: 180px;
+  width: 300px;
   padding: 10px;
 }
 
@@ -48,6 +48,10 @@
   width: 320px;
 }
 
+.main .addItemBtn {
+  background-color: #F5F5F5;
+}
+
 .main input[type="text"] {
   padding: 12px 16px;
   border: 1px solid #10a37f;
@@ -63,10 +67,10 @@
 
 .main input[type="submit"] {
   padding: 1px 1px;
-  color: #fff;
-  background-color: #182421;
-  border: none;
-  border-radius: 4px;
+  color: #AAA1A1;
+  background-color: #F5F5F5;
+  outline-color: #10a37f;
+  border-radius: 8px;
   text-align: center;
   cursor: pointer;
 }

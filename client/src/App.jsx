@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import food from "./assets/food.svg";
+import logo from "./assets/logo.png";
 import { useState, useRef } from "react";
 import CardList from "./components/CardList";
 import ImageUploader from "./components/ImageUploader";
@@ -146,7 +146,7 @@ export default function App() {
 
   return (
     <main className={styles.main}>
-      <img src={food} className={styles.icon} alt="temp-logo" />
+      <img src={logo} className={styles.icon} alt="temp-logo" />
       <input
         type="text"
         name="ingredient-name"
@@ -154,7 +154,7 @@ export default function App() {
         value={userPrompt}
         onChange={(e) => setUserPrompt(e.target.value)}
       />
-      <form onSubmit={onSubmit1}>
+      <form onSubmit={onSubmit1} className={styles.addItemBtn}>
         <input type="submit" value="Add item" />
       </form>
       <br></br>

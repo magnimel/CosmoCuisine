@@ -11,9 +11,9 @@ const Card = ({ card, onAdd, onSubstract }) => {
             <div className={styles.name}>{name}</div>
             <img className={styles.logo} src={logopath}></img>
             <div className={styles.operation}>
-                <button className={styles.button} onClick={() => onAdd(food_id)}>+</button>
-                <button className={styles.button} onClick={() => onSubstract(food_id)}>-</button>
+                <button className={styles.btn} onClick={() => onAdd(food_id)}>+</button>
                 <div className={styles.quantity}>{quantity}</div>
+                <button className={styles.btn} onClick={() => onSubstract(food_id)}>-</button>
             </div>
 
         </div>
